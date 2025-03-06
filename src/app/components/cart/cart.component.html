@@ -1,0 +1,106 @@
+<div class="cart-container">
+  <!-- Cart Banner -->
+  <div class="cart-banner">
+    <div class="banner-content">
+      <h1>Cart</h1>
+      <div class="breadcrumb">
+        <a routerLink="/home">Home</a>
+        <span class="separator">></span>
+        <span class="current">Cart</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Content -->
+  <div class="cart-content">
+    <div class="cart-wrapper" *ngIf="cartItems.length > 0; else emptyCart">
+      <!-- Cart Table -->
+      <div class="cart-table">
+        <div class="cart-header">
+          <div class="header-item product-col">Product</div>
+          <div class="header-item price-col">Price</div>
+          <div class="header-item quantity-col">Quantity</div>
+          <div class="header-item subtotal-col">Subtotal</div>
+        </div>
+        
+        <div class="cart-items">
+          <div class="cart-item" *ngFor="let item of cartItems">
+            <div class="product-col">
+              <div class="product-image">
+                <img [src]="item.product.imageUrl" [alt]="item.product.name">
+              </div>
+              <div class="product-info">
+                <h3 class="product-name">{{item.product.name}}</h3>
+                <p class="product-description">{{item.product.description}}</p>
+                <button class="remove-btn" (click)="removeItem(item)">
+                  <i class="icon-trash"></i> Remove
+                </button>
+              </div>
+            </div>
+            <div class="price-col">${{calculateItemPrice(item) | number:'1.2-2'}}</div>
+            <div class="quantity-col">
+              <div class="quantity-control">
+                <button class="quantity-btn minus" (click)="decreaseQuantity(item)" [disabled]="item.quantity <= 1">
+                  <i class="icon-minus"></i>
+                </button>
+                <input type="number" [value]="item.quantity" min="1" (change)="updateQuantity(item, $event)">
+                <button class="quantity-btn plus" (click)="increaseQuantity(item)">
+                  <i class="icon-plus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="subtotal-col">${{calculateSubtotal(item) | number:'1.2-2'}}</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Cart Actions -->
+      <div class="cart-actions">
+        <div class="coupon-section">
+          <input type="text" placeholder="Coupon Code" [(ngModel)]="couponCode">
+          <button class="apply-coupon-btn" (click)="applyCoupon()">Apply Coupon</button>
+        </div>
+        <button class="update-cart-btn" (click)="updateCart()">Update Cart</button>
+      </div>
+      
+      <!-- Cart Summary -->
+      <div class="cart-summary">
+        <h2>Cart Totals</h2>
+        <div class="summary-row">
+          <span class="summary-label">Subtotal</span>
+          <span class="summary-value">${{calculateTotal() | number:'1.2-2'}}</span>
+        </div>
+        <div class="summary-row" *ngIf="discount > 0">
+          <span class="summary-label">Discount</span>
+          <span class="summary-value">-${{discount | number:'1.2-2'}}</span>
+        </div>
+        <div class="summary-row shipping">
+          <span class="summary-label">Shipping</span>
+          <div class="shipping-options">
+            <div class="shipping-option" *ngFor="let option of shippingOptions">
+              <input type="radio" [id]="option.id" name="shipping" [value]="option.price" [(ngModel)]="selectedShipping" (change)="updateShipping()">
+              <label [for]="option.id">{{option.name}} - ${{option.price | number:'1.2-2'}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="summary-row total">
+          <span class="summary-label">Total</span>
+          <span class="summary-value">${{calculateGrandTotal() | number:'1.2-2'}}</span>
+        </div>
+        <button class="checkout-btn" routerLink="/checkout">Proceed to Checkout</button>
+      </div>
+    </div>
+    
+    <!-- Empty Cart -->
+    <ng-template #emptyCart>
+      <div class="empty-cart">
+        <div class="empty-cart-icon">
+          <i class="icon-cart-large"></i>
+        </div>
+        <h2>Your cart is empty</h2>
+        <p>Looks like you haven't added any products to your cart yet.</p>
+        <button class="continue-shopping-btn" routerLink="/shop">Continue Shopping</button>
+      </div>
+    </ng-template>
+  </div>
+</div>

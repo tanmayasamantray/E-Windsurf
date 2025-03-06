@@ -1,0 +1,59 @@
+<header class="header">
+  <div class="container">
+    <div class="logo">
+      <a routerLink="/">
+        <img src="assets/images/logo.svg" alt="Furniro" />
+        <span>Furniro</span>
+      </a>
+    </div>
+    <nav class="navigation">
+      <ul>
+        <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+        <li><a routerLink="/shop" routerLinkActive="active">Shop</a></li>
+        <li><a routerLink="/about" routerLinkActive="active">About</a></li>
+        <li><a routerLink="/contact" routerLinkActive="active">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="user-actions">
+      <button class="icon-btn" (click)="toggleLoginModal()">
+        <i class="user-icon"></i>
+      </button>
+      <button class="icon-btn">
+        <i class="search-icon"></i>
+      </button>
+      <button class="icon-btn">
+        <i class="wishlist-icon"></i>
+      </button>
+      <a routerLink="/cart" class="icon-btn cart-btn">
+        <i class="cart-icon"></i>
+        <span class="cart-count" *ngIf="cartCount > 0">{{cartCount}}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Auth Modal -->
+<div class="auth-modal" *ngIf="showLoginModal">
+  <div class="auth-modal-content">
+    <div class="auth-modal-header">
+      <h2>Login</h2>
+      <button class="close-btn" (click)="toggleLoginModal()">×</button>
+    </div>
+    <div class="auth-modal-body">
+      <form>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password">
+        </div>
+        <button type="button" class="btn-primary" (click)="login()">Login</button>
+      </form>
+      <div class="auth-modal-footer">
+        <p>Don't have an account? <a href="#">Register</a></p>
+      </div>
+    </div>
+  </div>
+</div>

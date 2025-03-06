@@ -1,0 +1,387 @@
+/* Main Container */
+.home-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Hero Banner Section */
+.hero-banner {
+  background-image: url('/assets/images/hero-banner.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 650px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 500px;
+  margin-left: 10%;
+  color: #333;
+}
+
+.hero-tag {
+  font-size: 16px;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.hero-title {
+  font-size: 52px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.hero-description {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.btn-primary {
+  background-color: #B88E2F;
+  color: white;
+  border: none;
+  padding: 14px 36px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #9a7628;
+}
+
+/* Browse Categories Section */
+.browse-categories {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.section-header {
+  margin-bottom: 50px;
+}
+
+.section-header h2 {
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.section-header p {
+  font-size: 16px;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.category-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 0 5%;
+}
+
+.category-card {
+  width: 300px;
+  text-align: center;
+}
+
+.category-image {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.category-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.category-image:hover img {
+  transform: scale(1.05);
+}
+
+.category-card h3 {
+  font-size: 24px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Featured Products Section */
+.featured-products {
+  padding: 80px 0;
+  background-color: #F9F1E7;
+  text-align: center;
+}
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 0 5%;
+  margin-bottom: 50px;
+}
+
+.product-card {
+  width: 285px;
+  background-color: white;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-actions {
+  transform: translateY(0);
+}
+
+.action-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  border: 1px solid #E5E5E5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  background-color: #B88E2F;
+  color: white;
+  border-color: #B88E2F;
+}
+
+.product-info {
+  padding: 20px;
+  text-align: left;
+}
+
+.product-name {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.product-description {
+  font-size: 14px;
+  color: #898989;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-price {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: 600;
+  color: #B88E2F;
+}
+
+.old-price {
+  font-size: 16px;
+  color: #B0B0B0;
+  text-decoration: line-through;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid #B88E2F;
+  color: #B88E2F;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  background-color: #B88E2F;
+  color: white;
+}
+
+/* Promotional Banner */
+.promo-banner {
+  background-image: url('/assets/images/promo-banner.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 10%;
+}
+
+.promo-content {
+  max-width: 500px;
+  background-color: white;
+  padding: 40px;
+  text-align: left;
+}
+
+.promo-content h2 {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.promo-content p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.btn-secondary {
+  background-color: #B88E2F;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #9a7628;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .hero-title {
+    font-size: 42px;
+  }
+  
+  .category-grid {
+    gap: 20px;
+  }
+  
+  .category-card {
+    width: 280px;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero-banner {
+    height: 550px;
+  }
+  
+  .hero-content {
+    margin-left: 5%;
+  }
+  
+  .promo-banner {
+    height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-banner {
+    height: 450px;
+  }
+  
+  .hero-content {
+    max-width: 90%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .hero-title {
+    font-size: 36px;
+  }
+  
+  .category-card {
+    width: 250px;
+  }
+  
+  .promo-banner {
+    height: auto;
+    padding: 60px 5%;
+    justify-content: center;
+  }
+  
+  .promo-content {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-banner {
+    height: 400px;
+  }
+  
+  .hero-title {
+    font-size: 30px;
+  }
+  
+  .hero-description {
+    font-size: 16px;
+  }
+  
+  .section-header h2 {
+    font-size: 28px;
+  }
+  
+  .category-card {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .product-card {
+    width: 100%;
+    max-width: 300px;
+  }
+}

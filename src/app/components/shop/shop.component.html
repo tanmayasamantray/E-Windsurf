@@ -1,0 +1,117 @@
+<div class="shop-container">
+  <!-- Shop Banner -->
+  <div class="shop-banner">
+    <div class="banner-content">
+      <h1>Shop</h1>
+      <div class="breadcrumb">
+        <a routerLink="/home">Home</a>
+        <span class="separator">></span>
+        <span class="current">Shop</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shop Content -->
+  <div class="shop-content">
+    <!-- Filters and Sort Section -->
+    <div class="filter-sort-section">
+      <div class="filter-container">
+        <button class="filter-btn" (click)="toggleFilterPanel()">
+          <i class="filter-icon"></i> Filter
+        </button>
+        <div class="filter-panel" [class.show]="showFilterPanel">
+          <div class="filter-group">
+            <h3>Categories</h3>
+            <div class="filter-options">
+              <div class="filter-option" *ngFor="let category of categories">
+                <input type="checkbox" [id]="category" [value]="category" (change)="filterByCategory($event)">
+                <label [for]="category">{{category}}</label>
+              </div>
+            </div>
+          </div>
+          <div class="filter-group">
+            <h3>Price Range</h3>
+            <div class="price-range">
+              <input type="range" min="0" max="10000" step="100" [(ngModel)]="priceRange" (change)="filterByPrice()">
+              <div class="price-values">
+                <span>$0</span>
+                <span>${{priceRange}}</span>
+              </div>
+            </div>
+          </div>
+          <button class="apply-filter-btn" (click)="applyFilters()">Apply Filter</button>
+        </div>
+      </div>
+      <div class="showing-results">
+        <p>Showing {{filteredProducts.length}} of {{products.length}} results</p>
+      </div>
+      <div class="sort-container">
+        <select [(ngModel)]="sortOption" (change)="sortProducts()">
+          <option value="default">Default sorting</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="name-asc">Name: A to Z</option>
+          <option value="name-desc">Name: Z to A</option>
+        </select>
+      </div>
+      <div class="view-options">
+        <button class="view-btn grid-view active" (click)="setViewMode('grid')">
+          <i class="grid-icon"></i>
+        </button>
+        <button class="view-btn list-view" (click)="setViewMode('list')">
+          <i class="list-icon"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products-container" [ngClass]="viewMode">
+      <div class="product-card" *ngFor="let product of filteredProducts">
+        <div class="product-image">
+          <img [src]="product.imageUrl" [alt]="product.name">
+          <div class="product-badges">
+            <span class="badge new" *ngIf="product.isNew">New</span>
+            <span class="badge discount" *ngIf="product.discount">-{{product.discount}}%</span>
+          </div>
+          <div class="product-actions">
+            <button class="action-btn" (click)="addToCart(product)">
+              <i class="icon-cart"></i>
+            </button>
+            <button class="action-btn" (click)="addToWishlist(product)">
+              <i class="icon-heart"></i>
+            </button>
+            <button class="action-btn" [routerLink]="['/product', product.id]">
+              <i class="icon-search"></i>
+            </button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">{{product.name}}</h3>
+          <p class="product-description">{{product.description}}</p>
+          <div class="product-price">
+            <span class="price">${{calculateDiscountedPrice(product) | number:'1.2-2'}}</span>
+            <span class="old-price" *ngIf="product.discount">${{product.price | number:'1.2-2'}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <button class="page-btn prev" [disabled]="currentPage === 1" (click)="changePage(currentPage - 1)">
+        <i class="icon-arrow-left"></i>
+      </button>
+      <div class="page-numbers">
+        <button class="page-number" 
+                *ngFor="let page of getPageNumbers()" 
+                [class.active]="page === currentPage"
+                (click)="changePage(page)">
+          {{page}}
+        </button>
+      </div>
+      <button class="page-btn next" [disabled]="currentPage === totalPages" (click)="changePage(currentPage + 1)">
+        <i class="icon-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>

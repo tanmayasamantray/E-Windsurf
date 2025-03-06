@@ -1,0 +1,79 @@
+<div class="home-container">
+  <!-- Hero Banner Section -->
+  <section class="hero-banner">
+    <div class="hero-content">
+      <span class="hero-tag">New Arrival</span>
+      <h1 class="hero-title">Discover Our<br>New Collection</h1>
+      <p class="hero-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.</p>
+      <button class="btn-primary">BUY NOW</button>
+    </div>
+  </section>
+
+  <!-- Browse Categories Section -->
+  <section class="browse-categories">
+    <div class="section-header">
+      <h2>Browse The Range</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+    <div class="category-grid">
+      <div class="category-card">
+        <div class="category-image">
+          <img src="assets/images/category-dining.jpg" alt="Dining">
+        </div>
+        <h3>Dining</h3>
+      </div>
+      <div class="category-card">
+        <div class="category-image">
+          <img src="assets/images/category-living.jpg" alt="Living">
+        </div>
+        <h3>Living</h3>
+      </div>
+      <div class="category-card">
+        <div class="category-image">
+          <img src="assets/images/category-bedroom.jpg" alt="Bedroom">
+        </div>
+        <h3>Bedroom</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section class="featured-products">
+    <div class="section-header">
+      <h2>Our Products</h2>
+    </div>
+    <div class="product-grid">
+      <!-- Product cards will be dynamically generated -->
+      <div class="product-card" *ngFor="let product of featuredProducts">
+        <div class="product-image">
+          <img [src]="product.imageUrl" [alt]="product.name">
+          <div class="product-actions">
+            <button class="action-btn"><i class="icon-cart"></i></button>
+            <button class="action-btn"><i class="icon-heart"></i></button>
+            <button class="action-btn" [routerLink]="['/product', product.id]"><i class="icon-search"></i></button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">{{product.name}}</h3>
+          <p class="product-description">{{product.description}}</p>
+          <div class="product-price">
+            <span class="price">${{product.price.toFixed(2)}}</span>
+            <span class="old-price" *ngIf="product.oldPrice">${{product.oldPrice.toFixed(2)}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="show-more">
+      <button class="btn-outline" routerLink="/shop">Show More</button>
+    </div>
+  </section>
+
+  <!-- Promotional Banner -->
+  <section class="promo-banner">
+    <div class="promo-content">
+      <h2>50+ Beautiful rooms inspiration</h2>
+      <p>Our designer already made a lot of beautiful prototipe of rooms that inspire you</p>
+      <button class="btn-secondary">Explore More</button>
+    </div>
+  </section>
+</div>
