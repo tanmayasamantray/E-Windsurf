@@ -1,1 +1,271 @@
-<p>checkout works!</p>
+<!-- Checkout Banner -->
+<div class="checkout-banner">
+  <div class="banner-content">
+    <h1>Checkout</h1>
+    <div class="breadcrumb">
+      <a routerLink="/">Home</a>
+      <span class="separator">></span>
+      <a routerLink="/cart">Cart</a>
+      <span class="separator">></span>
+      <span class="current">Checkout</span>
+    </div>
+  </div>
+</div>
+
+<div class="checkout-container">
+  <!-- Order Confirmation (shown after order is placed) -->
+  <div class="order-confirmation" *ngIf="orderPlaced">
+    <div class="confirmation-content">
+      <div class="check-icon">✓</div>
+      <h2>Thank You for Your Order!</h2>
+      <p>Your order has been placed successfully.</p>
+      <div class="order-details">
+        <p><strong>Order Number:</strong> {{ orderId }}</p>
+        <p><strong>Order Date:</strong> {{ orderDate | date:'medium' }}</p>
+        <p>You will receive an order confirmation email with details of your order.</p>
+      </div>
+      <div class="confirmation-actions">
+        <button class="primary-btn" routerLink="/">Continue Shopping</button>
+        <button class="secondary-btn" routerLink="/account/orders">View My Orders</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Form -->
+  <div class="checkout-content" *ngIf="!orderPlaced">
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" *ngIf="isProcessing">
+      <div class="loading-spinner"></div>
+      <p>Processing your order...</p>
+    </div>
+
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+      <!-- Billing Details -->
+      <div class="billing-details">
+        <h2>Billing details</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name <span class="required">*</span></label>
+            <input type="text" id="firstName" formControlName="firstName">
+            <div class="error-message" *ngIf="isInvalid('firstName')">
+              First name is required
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="lastName">Last Name <span class="required">*</span></label>
+            <input type="text" id="lastName" formControlName="lastName">
+            <div class="error-message" *ngIf="isInvalid('lastName')">
+              Last name is required
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="companyName">Company Name (Optional)</label>
+          <input type="text" id="companyName" formControlName="companyName">
+        </div>
+        
+        <div class="form-group">
+          <label for="country">Country / Region <span class="required">*</span></label>
+          <select id="country" formControlName="country">
+            <option value="">Select a country</option>
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="UK">United Kingdom</option>
+            <option value="AU">Australia</option>
+            <option value="IN">India</option>
+          </select>
+          <div class="error-message" *ngIf="isInvalid('country')">
+            Please select a country
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="streetAddress">Street Address <span class="required">*</span></label>
+          <input type="text" id="streetAddress" formControlName="streetAddress" placeholder="House number and street name">
+          <div class="error-message" *ngIf="isInvalid('streetAddress')">
+            Street address is required
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="apartment">Apartment, suite, unit, etc. (Optional)</label>
+          <input type="text" id="apartment" formControlName="apartment">
+        </div>
+        
+        <div class="form-group">
+          <label for="townCity">Town / City <span class="required">*</span></label>
+          <input type="text" id="townCity" formControlName="townCity">
+          <div class="error-message" *ngIf="isInvalid('townCity')">
+            Town/City is required
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="state">State <span class="required">*</span></label>
+            <input type="text" id="state" formControlName="state">
+            <div class="error-message" *ngIf="isInvalid('state')">
+              State is required
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="zipCode">ZIP Code <span class="required">*</span></label>
+            <input type="text" id="zipCode" formControlName="zipCode">
+            <div class="error-message" *ngIf="isInvalid('zipCode')">
+              Please enter a valid ZIP code
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone <span class="required">*</span></label>
+            <input type="tel" id="phone" formControlName="phone">
+            <div class="error-message" *ngIf="isInvalid('phone')">
+              Please enter a valid phone number
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email Address <span class="required">*</span></label>
+            <input type="email" id="email" formControlName="email">
+            <div class="error-message" *ngIf="isInvalid('email')">
+              Please enter a valid email address
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="orderNotes">Order notes (Optional)</label>
+          <textarea id="orderNotes" formControlName="orderNotes" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
+        </div>
+      </div>
+      
+      <!-- Order Summary -->
+      <div class="order-summary">
+        <h2>Your order</h2>
+        
+        <div class="summary-table">
+          <div class="summary-header">
+            <span>Product</span>
+            <span>Subtotal</span>
+          </div>
+          
+          <div class="summary-items">
+            <div class="summary-item" *ngFor="let item of cartItems">
+              <div class="item-name">{{ item.product.name }} × {{ item.quantity }}</div>
+              <div class="item-price">Rs. {{ item.product.price * item.quantity }}</div>
+            </div>
+          </div>
+          
+          <div class="summary-subtotal">
+            <span>Subtotal</span>
+            <span>Rs. {{ subtotal }}</span>
+          </div>
+          
+          <!-- Shipping Methods -->
+          <div class="shipping-methods">
+            <h3>Shipping</h3>
+            
+            <div class="shipping-options">
+              <div class="shipping-option" *ngFor="let method of shippingMethods">
+                <label class="radio-label">
+                  <input type="radio" [value]="method.id" formControlName="shippingMethod">
+                  <span class="radio-custom"></span>
+                  <div class="shipping-info">
+                    <div class="shipping-name">{{ method.name }}</div>
+                    <div class="shipping-details">{{ method.time }}</div>
+                  </div>
+                  <div class="shipping-cost">
+                    {{ method.cost === 0 ? 'Free' : 'Rs. ' + method.cost }}
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="summary-total">
+            <span>Total</span>
+            <span>Rs. {{ total }}</span>
+          </div>
+        </div>
+        
+        <!-- Payment Methods -->
+        <div class="payment-methods">
+          <h3>Payment Method</h3>
+          
+          <div class="payment-options">
+            <div class="payment-option" *ngFor="let method of paymentMethods">
+              <label class="radio-label">
+                <input type="radio" [value]="method.id" formControlName="paymentMethod">
+                <span class="radio-custom"></span>
+                <span>{{ method.name }}</span>
+              </label>
+              
+              <!-- Credit Card Form (shown only when credit card is selected) -->
+              <div class="credit-card-form" *ngIf="method.id === 'credit-card' && checkoutForm.get('paymentMethod')?.value === 'credit-card'">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Card Number</label>
+                    <input type="text" placeholder="1234 5678 9012 3456">
+                  </div>
+                </div>
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Expiry Date</label>
+                    <input type="text" placeholder="MM/YY">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label>CVV</label>
+                    <input type="text" placeholder="123">
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label>Name on Card</label>
+                  <input type="text">
+                </div>
+              </div>
+              
+              <!-- PayPal Info (shown only when PayPal is selected) -->
+              <div class="paypal-info" *ngIf="method.id === 'paypal' && checkoutForm.get('paymentMethod')?.value === 'paypal'">
+                <p>You will be redirected to PayPal to complete your payment.</p>
+              </div>
+              
+              <!-- Bank Transfer Info (shown only when Bank Transfer is selected) -->
+              <div class="bank-transfer-info" *ngIf="method.id === 'bank-transfer' && checkoutForm.get('paymentMethod')?.value === 'bank-transfer'">
+                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference.</p>
+                <p><strong>Bank:</strong> Example Bank</p>
+                <p><strong>Account Number:</strong> 1234567890</p>
+                <p><strong>IFSC Code:</strong> EXBK0001234</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Terms and Conditions -->
+        <div class="terms-conditions">
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="termsAccepted">
+            <span class="checkbox-custom"></span>
+            <span>I have read and agree to the website <a href="#">terms and conditions</a> <span class="required">*</span></span>
+          </label>
+          <div class="error-message" *ngIf="isInvalid('termsAccepted')">
+            You must accept the terms and conditions to proceed
+          </div>
+        </div>
+        
+        <!-- Place Order Button -->
+        <button type="submit" class="place-order-btn" [disabled]="isProcessing">
+          {{ isProcessing ? 'Processing...' : 'Place Order' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -180,13 +180,13 @@
 .star-icon {
   width: 20px;
   height: 20px;
-  background-image: url('assets/images/star.svg');
+  /* background-image: url('assets/images/star.svg'); */
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 .star-icon.filled {
-  background-image: url('assets/images/star-filled.svg');
+  /* background-image: url('assets/images/star-filled.svg'); */
 }
 
 .reviews-count {
@@ -279,7 +279,7 @@
 .heart-icon {
   width: 20px;
   height: 20px;
-  background-image: url('assets/images/heart.svg');
+  /* background-image: url('assets/images/heart.svg'); */
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -331,19 +331,19 @@
 }
 
 .social-icon.facebook {
-  background-image: url('assets/images/facebook.svg');
+  /* background-image: url('assets/images/facebook.svg'); */
 }
 
 .social-icon.twitter {
-  background-image: url('assets/images/twitter.svg');
+  /* background-image: url('assets/images/twitter.svg'); */
 }
 
 .social-icon.instagram {
-  background-image: url('assets/images/instagram.svg');
+  /* background-image: url('assets/images/instagram.svg'); */
 }
 
 .social-icon.pinterest {
-  background-image: url('assets/images/pinterest.svg');
+  /* background-image: url('assets/images/pinterest.svg'); */
 }
 
 /* Related Products */

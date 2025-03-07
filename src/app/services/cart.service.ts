@@ -66,8 +66,8 @@ export class CartService {
     localStorage.setItem('furniroCart', JSON.stringify(this.cartItemsSubject.value));
   }
 
-  getCartItems(): CartItem[] {
-    return this.cartItemsSubject.value;
+  getCartItems(): Observable<CartItem[]> {
+    return this.cartItems$;
   }
 
   addToCart(product: Product, quantity: number = 1): void {
@@ -139,5 +139,15 @@ export class CartService {
         observer.next(total);
       });
     });
+  }
+
+  calculateSubtotal(): number {
+    const items = this.cartItemsSubject.value;
+    return items.reduce((sum, item) => {
+      const itemPrice = item.product.discount 
+        ? item.product.price * (1 - item.product.discount / 100) 
+        : item.product.price;
+      return sum + (itemPrice * item.quantity);
+    }, 0);
   }
 }
